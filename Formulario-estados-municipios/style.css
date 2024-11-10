@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+* {
+    font-family: "Funnel Sans", sans-serif;
+    margin: 0;
+    border: 0;
+    background-color: #adacb5;
+    color: #2d3142;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    height: auto;
+    min-width: 20rem;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 2rem;
+    background-color: #eae8ff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23); 
+}
+
+h1, input, label, select {
+    background-color: #eae8ff;
+}
+
+h1{
+    margin-bottom: 1rem;
+}
+
+input, select {
+    margin-top: .5rem;
+    border-radius: 5px;
+    padding-left: .25rem;
+    height: 1.8rem;
+    border: 1px solid #adacb5;
+    font-size: 15px;
+}
+
+select{
+    width: 100%;
+}
+
+input:not(input[type="submit"]){
+    width: 98.5%;
+}
+
+input[type="submit"]{
+    min-width: 7rem;
+    margin-top: 1.5rem;
+    /* width: 20%; */
+    background-color: #2d3142;
+    border: none;
+    color: #eae8ff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover{
+    background-color: #eae8ff;
+    color: #2d3142;
+    border: 1px #2d3142 solid;
+}
+
+option {
+    background-color: #d8d5db;
+}

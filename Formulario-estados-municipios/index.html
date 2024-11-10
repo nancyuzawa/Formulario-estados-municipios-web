@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Formulario Estado + Municipio</title>
+</head>
+<body onload="loadDoc()">
+    <form id="meuFormulario">
+        <h1>Cadastro</h1>
+        <label for="nome">
+            <input id="nome" type="text" placeholder="Nome" required>
+        </label>
+        <label for="data">
+            <input id="data" type="date" value="0000-00-00">
+        </label>
+        <label for="estado"></label>
+        <select name="estado" id="estado" required>
+            <option value="estado">Estado</option>
+        </select>
+        <label for="cidade"></label>
+        <select name="cidade" id="cidade">
+            <option value="cidade">Cidade</option>
+            <option value="">ddd</option>
+            <option value="">jnjjj</option>
+        </select>
+        <label for="endereco">
+            <input id="endereco" type="text" placeholder="Endereço" required>
+        </label>
+        <label for="bairro">
+            <input id="bairro" type="text" placeholder="Bairro" required>
+        </label>
+        <label for="btnCadastrar">
+            <input id="btnCadastrar" type="submit" value="Cadastrar">
+        </label>
+    </form>
+    <script src="./script.js"></script>
+    <script>
+        // Função para carregar o documento JSON
+        function loadDoc() {
+            // Cria um novo objeto XMLHttpRequest para realizar a requisição HTTP
+            const xmlHttp = new XMLHttpRequest();
+    
+            // Define o que deve acontecer quando a requisição for completada
+            xmlHttp.onload = function() {
+                // Converte a resposta JSON (texto) em um objeto JavaScript
+                const myObj = JSON.parse(this.responseText);
+
+                // Organiza em ordem alfabética
+                let nomeEstados = myObj.sort((a,b) => a.nome.localeCompare(b.nome))
+
+                // console.log(nomeEstados)
+
+                // Adiciona os estados no HTML como opções do select
+                for (let i = 0; i < nomeEstados.length; i++){
+                     let novaOpcaoEstado = document.createElement("option");
+                    novaOpcaoEstado.textContent = nomeEstados[i]['nome'];
+                     document.getElementById("estado").appendChild(novaOpcaoEstado);
+                }
+                
+            }
+    
+            // Abre uma nova requisição do tipo GET para o arquivo cd_catalog.json
+            xmlHttp.open("GET", "https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+            
+            // Envia a requisição
+            xmlHttp.send();
+        }
+        
+        //Capturar o estado selecionado
+        document.getElementById("estado").addEventListener("change", function(){
+            const valorEstado = document.getElementById("estado").value;
+
+            const xmlHttp = new XMLHttpRequest();
+    
+            // Define o que deve acontecer quando a requisição for completada
+            xmlHttp.onload = function() {
+                // Converte a resposta JSON (texto) em um objeto JavaScript
+                const myObj = JSON.parse(this.responseText);
+
+                // Organiza em ordem alfabética
+                 //let nomeEstados = myObj.sort((a,b) => a.nome.localeCompare(b.nome))
+
+                // console.log(nomeEstados)
+                let siglaEstado;
+
+                // Adiciona os estados no HTML como opções do select
+                for (let i = 0; i < myObj.length; i++){
+                    if (valorEstado == myObj[i]['nome']){
+                        siglaEstado = myObj[i]['sigla']
+                        console.log("achou " + valorEstado+ "\n" + myObj[i]['sigla'])
+                    }
+                }
+                const xmlHttpCidade = new XMLHttpRequest();
+            xmlHttpCidade.onload = function(){
+                const myObj = JSON.parse(this.responseText);
+
+                let nomeCidades = myObj.sort((a,b) => a.nome.localeCompare(b.nome));
+
+                document.getElementById("cidade").innerHTML = '';
+                let primeiraOpcao = document.createElement("option");
+                primeiraOpcao.textContent = "Cidade";
+                document.getElementById("cidade").appendChild(primeiraOpcao);
+
+                for (let i = 0; i < nomeCidades.length; i++){
+                    let novaOpcaoCidade = document.createElement("option");
+                    novaOpcaoCidade.textContent = nomeCidades[i]['nome'];
+                    document.getElementById("cidade").appendChild(novaOpcaoCidade);
+                }
+                
+            }
+            //  
+            xmlHttpCidade.open("GET", `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${siglaEstado}/municipios`);
+            
+            // Envia a requisição
+            xmlHttpCidade.send();
+                //loadCidades(siglaEstado);
+            }
+    
+            // Abre uma nova requisição do tipo GET para o arquivo cd_catalog.json
+            xmlHttp.open("GET", "https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+            
+            // Envia a requisição
+            xmlHttp.send();
+            
+        });
+        
+        function loadCidades(siglaEstado){
+            const xmlHttpCidade = new XMLHttpRequest();
+            xmlHttpCidade.onload = function(){
+                const myObj = JSON.parse(this.responseText);
+
+                let nomeCidades = myObj.sort((a,b) => a.nome.localeCompare(b.nome));
+
+                for (let i = 0; i < nomeCidades.length; i++){
+                    let novaOpcaoCidade = document.createElement("option");
+                    novaOpcaoCidade.textContent = nomeCidades[i]['nome'];
+                    document.getElementById("cidade").appendChild(novaOpcaoCidade);
+                }
+                
+            }
+            //  
+            xmlHttpCidade.open("GET", `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${siglaEstado}/municipios`);
+            
+            // Envia a requisição
+            xmlHttpCidade.send();
+        }
+
+       
+
+    </script>
+    
+</body>
+</html>
