@@ -30,7 +30,7 @@
 </p>
   
 <p>
-  Objetivo: cadastramento dos dados do paciente (nome, peso, alltura e % de gordura corporal) para mostrar na tabela juntamente com seu respectivo IMC. 
+	Objetivo: criação de um formulário para manipular e consumir dados por meio de requisições HTTP, permitindo o cadastramento de informações como nome, data, estado, cidade, endereço e bairro. O formulário utiliza uma API pública para buscar estados e cidades com base no estado selecionado.
 </p>
 
 <h2 id="tecnologias">
