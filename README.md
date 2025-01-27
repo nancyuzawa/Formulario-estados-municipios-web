@@ -48,7 +48,7 @@
 	Demonstração da aplicação
 </h2>
 
-![image](https://github.com/user-attachments/assets/85198b76-236e-4ee2-aa59-e163f12f36f6)
+![image](https://github.com/user-attachments/assets/82898486-34e8-4a1c-b69d-ac34050b8d6c)
 
 <br>
 <p align="center">
